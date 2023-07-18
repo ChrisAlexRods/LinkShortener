@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>URL Shortener</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-5">URL Shortener</h1>
+      <div class="row mt-5">
+        <div class="col-md-8 offset-md-2">
+          <form id="url-form">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                id="url-input"
+                class="form-control"
+                placeholder="Enter a URL"
+                required
+              />
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Shorten</button>
+              </div>
+            </div>
+          </form>
+          <div id="result-container" class="mt-3 d-none">
+            <h5>Shortened URL:</h5>
+            <div class="input-group mb-3">
+              <input type="text" id="result" class="form-control" readonly />
+              <div class="input-group-append">
+                <button class="btn btn-secondary" id="copy-button">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $("#url-form").on("submit", function (e) {
+        e.preventDefault();
+        $.ajax({
+          url: "/shorten",
+          type: "POST",
+          data: JSON.stringify({ url: $("#url-input").val() }),
+          contentType: "application/json",
+          success: function (data) {
+            $("#result").val(data.shortened_url);
+            $("#result-container").removeClass("d-none");
+          },
+          error: function () {
+            alert("An error occurred. Please try again.");
+          },
+        });
+      });
+
+      $("#copy-button").on("click", function () {
+        $("#result").select();
+        document.execCommand("copy");
+      });
+    </script>
+  </body>
+</html>
