@@ -2,17 +2,22 @@ from flask import Flask, request, jsonify, redirect
 from flask_sqlalchemy import SQLAlchemy
 import string
 import random
+import os
 
 app = Flask(__name__)
 # Configure SQLite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+# Configure SQLite database
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'test.db')
 db = SQLAlchemy(app)
 
 class UrlMapping(db.Model):
     id = db.Column(db.String(6), primary_key=True)
     url = db.Column(db.String(512))
 
-db.create_all()
+# Create an application context
+with app.app_context():
+    db.create_all()
 
 def generate_unique_id():
     # Try to generate a unique ID until we succeed
@@ -42,7 +47,6 @@ def redirect_url(id):
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,66 @@
+# URL Shortener
+
+This is a simple URL shortener web application. The frontend is created with HTML, CSS, and jQuery. The backend is powered by Flask and SQLAlchemy, and it uses a SQLite database to store URL mappings.
+
+## Requirements
+
+- Python 3.6 or higher
+- Pip (Python package manager)
+- Virtualenv (optional)
+
+## Setting Up the Project
+
+1. Clone the repository to your local machine:
+   ```
+   git clone <repository-url>
+   ```
+2. Navigate to the project folder:
+   ```
+   cd <project-folder>
+   ```
+3. (Optional) Create a virtual environment:
+   ```
+   python3 -m venv myenv
+   ```
+4. Activate the virtual environment:
+   On Windows:
+   ```
+   .\myenv\Scripts\activate
+   ```
+   On Unix or MacOS:
+   ```
+   source myenv/bin/activate
+   ```
+5. Install the required Python packages:
+   ```
+   pip install flask flask_sqlalchemy
+   ```
+
+## Running the Project
+
+1. Start the Flask application:
+
+   ```
+   python backend.py
+   ```
+
+   If the application starts successfully, you should see output similar to the following:
+
+   ```
+   * Serving Flask app 'backend'
+   * Debug mode: on
+   * Running on http://127.0.0.1:5000
+   ```
+
+2. Open your web browser and navigate to http://localhost:5000 to view the frontend.
+
+## Testing
+
+To test the URL shortener:
+
+1. Enter a URL in the text field.
+2. Click the "Shorten" button.
+3. The application will display a shortened URL. Click the "Copy" button to copy it to your clipboard.
+4. Paste the shortened URL into your browser's address bar and press enter. You should be redirected to the original URL.
+
+If you encounter any issues, check the console log in your browser (right-click -> Inspect -> Console) and the output of your Flask server for any error messages.
